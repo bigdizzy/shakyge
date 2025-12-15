@@ -1,0 +1,1260 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Shaky Gaming & Entertainment | shaky.gg</title>
+	<meta name="description"
+		content="Shaky Gaming & Entertainment is a Toronto-based creator support studio since 2020. We supported 300+ creators and continue to invest in creator-driven work." />
+	<meta name="theme-color" content="#050913" />
+
+	<style>
+		:root {
+			--bg0: #050913;
+			--bg1: #060b1c;
+
+			--text: #eaf3ff;
+			--muted: rgba(234, 243, 255, .72);
+
+			--blue0: #1d4cff;
+			--blue1: #2aa9ff;
+			--blue2: #33d6ff;
+
+			--line: rgba(180, 210, 255, .14);
+			--shadow: 0 18px 60px rgba(0, 0, 0, .45);
+
+			--radius: 22px;
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		html,
+		body {
+			height: 100%
+		}
+
+		body {
+			margin: 0;
+			font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+			color: var(--text);
+			background: linear-gradient(180deg, var(--bg0), var(--bg1));
+			overflow-x: hidden;
+		}
+
+		a {
+			color: inherit
+		}
+
+		::selection {
+			background: rgba(42, 169, 255, .18)
+		}
+
+		.vignette {
+			position: fixed;
+			inset: 0;
+			z-index: -6;
+			background:
+				radial-gradient(1100px 620px at 18% 20%, rgba(51, 214, 255, .06), transparent 62%),
+				radial-gradient(1100px 620px at 82% 62%, rgba(29, 76, 255, .06), transparent 62%),
+				radial-gradient(1400px 1100px at 50% 50%, rgba(0, 0, 0, .00), rgba(0, 0, 0, .46));
+			pointer-events: none;
+		}
+
+		.grid {
+			position: fixed;
+			inset: -30vh -30vw;
+			z-index: -5;
+			pointer-events: none;
+			opacity: .09;
+			background:
+				linear-gradient(rgba(180, 210, 255, .22) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(180, 210, 255, .22) 1px, transparent 1px);
+			background-size: 56px 56px;
+			transform: rotate(-8deg);
+			filter: blur(.1px);
+		}
+
+		#geom {
+			position: fixed;
+			inset: 0;
+			z-index: -4;
+			pointer-events: none;
+			opacity: .95;
+		}
+
+		.scanlines {
+			position: fixed;
+			inset: 0;
+			z-index: -3;
+			pointer-events: none;
+			opacity: .08;
+			background: repeating-linear-gradient(to bottom,
+					rgba(234, 243, 255, .22) 0px,
+					rgba(234, 243, 255, .22) 1px,
+					transparent 2px,
+					transparent 7px);
+			mix-blend-mode: overlay;
+		}
+
+		.grain {
+			position: fixed;
+			inset: 0;
+			z-index: -2;
+			pointer-events: none;
+			opacity: .12;
+			mix-blend-mode: overlay;
+			background-image:
+				url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+			background-size: 220px 220px;
+		}
+
+		.progressWrap {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 3px;
+			z-index: 50;
+			background: rgba(180, 210, 255, .06);
+		}
+
+		.progressBar {
+			height: 100%;
+			width: 0%;
+			background: linear-gradient(90deg, rgba(29, 76, 255, 1), rgba(42, 169, 255, 1), rgba(51, 214, 255, 1));
+			box-shadow: 0 0 18px rgba(42, 169, 255, .14);
+		}
+
+		header {
+			position: sticky;
+			top: 3px;
+			z-index: 40;
+			backdrop-filter: blur(14px) saturate(1.25);
+			background: rgba(5, 9, 19, .62);
+			border-bottom: 1px solid rgba(180, 210, 255, .10);
+		}
+
+		.nav {
+			max-width: 1120px;
+			margin: 0 auto;
+			padding: 14px 18px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			text-decoration: none;
+			min-width: 240px;
+		}
+
+		.logo {
+			height: 64px;
+			border-radius: 14px;
+			position: relative;
+			overflow: hidden;
+			object-fit: contain;
+			display: block;
+		}
+
+		.logo:before {
+			content: "";
+			position: absolute;
+			inset: -30%;
+			background:
+				radial-gradient(circle at 35% 35%, rgba(51, 214, 255, .50), transparent 58%),
+				radial-gradient(circle at 70% 70%, rgba(29, 76, 255, .36), transparent 62%);
+			transform: rotate(18deg);
+			opacity: .85;
+		}
+
+		.logo:after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: 14px;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+		}
+
+		.brand strong {
+			display: block;
+			font-weight: 900;
+			letter-spacing: -0.02em
+		}
+
+		.brand span {
+			display: block;
+			font-size: 13px;
+			color: var(--muted);
+			margin-top: 2px
+		}
+
+		.links {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+		.links a {
+			text-decoration: none;
+			font-size: 14px;
+			color: var(--muted);
+			padding: 8px 10px;
+			border-radius: 12px;
+			border: 1px solid transparent;
+		}
+
+		.links a:hover {
+			background: rgba(180, 210, 255, .08);
+			color: var(--text);
+			border-color: rgba(180, 210, 255, .10);
+		}
+
+		.links a.pill {
+			border-color: rgba(51, 214, 255, .20);
+			background: rgba(51, 214, 255, .06);
+		}
+
+		@media (max-width: 920px) {
+			.links {
+				display: none
+			}
+		}
+
+		main {
+			max-width: 1120px;
+			margin: 0 auto;
+			padding: 0 18px 92px;
+		}
+
+		.glass {
+			background: rgba(10, 18, 42, .34);
+			border: 1px solid rgba(180, 210, 255, .16);
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(16px) saturate(1.25);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.glass:before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: var(--radius);
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14);
+			pointer-events: none;
+			opacity: .95;
+		}
+
+		.glass:after {
+			content: "";
+			position: absolute;
+			inset: -60% -40%;
+			background:
+				radial-gradient(circle at 34% 36%, rgba(51, 214, 255, .09), transparent 62%),
+				radial-gradient(circle at 72% 70%, rgba(29, 76, 255, .07), transparent 66%);
+			transform: rotate(14deg);
+			opacity: .55;
+			pointer-events: none;
+		}
+
+		.glass>* {
+			position: relative;
+			z-index: 1
+		}
+
+		.accentLine {
+			height: 1px;
+			width: 100%;
+			background: rgba(180, 210, 255, .12);
+			margin: 14px 0;
+		}
+
+		.tiny {
+			font-size: 13px;
+			color: rgba(234, 243, 255, .62);
+		}
+
+		.monoTag {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+			font-size: 12px;
+			letter-spacing: .02em;
+			color: rgba(234, 243, 255, .72);
+			opacity: .95;
+		}
+
+		.hero {
+			min-height: calc(100vh - 64px);
+			display: flex;
+			align-items: center;
+			padding: 32px 0 18px;
+		}
+
+		.heroWrap {
+			width: 100%;
+			border-radius: calc(var(--radius) + 14px);
+			border: 1px solid rgba(180, 210, 255, .18);
+			background: rgba(10, 18, 42, .18);
+			box-shadow: 0 26px 90px rgba(0, 0, 0, .55);
+			overflow: hidden;
+			position: relative;
+		}
+
+		.heroWrap .hud {
+			position: absolute;
+			inset: 14px;
+			border-radius: calc(var(--radius) + 6px);
+			pointer-events: none;
+			opacity: .70;
+		}
+
+		.hud:before,
+		.hud:after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			box-shadow: inset 0 0 0 1px rgba(180, 210, 255, .12);
+		}
+
+		.corner {
+			position: absolute;
+			width: 22px;
+			height: 22px;
+			border-color: rgba(51, 214, 255, .26);
+			border-style: solid;
+		}
+
+		.c1 {
+			top: 0;
+			left: 0;
+			border-width: 2px 0 0 2px;
+			border-radius: 12px 0 0 0
+		}
+
+		.c2 {
+			top: 0;
+			right: 0;
+			border-width: 2px 2px 0 0;
+			border-radius: 0 12px 0 0
+		}
+
+		.c3 {
+			bottom: 0;
+			left: 0;
+			border-width: 0 0 2px 2px;
+			border-radius: 0 0 0 12px
+		}
+
+		.c4 {
+			bottom: 0;
+			right: 0;
+			border-width: 0 2px 2px 0;
+			border-radius: 0 0 12px 0
+		}
+
+		.heroGlow {
+			position: absolute;
+			inset: -2px;
+			border-radius: calc(var(--radius) + 14px);
+			pointer-events: none;
+			opacity: .85;
+			box-shadow:
+				0 0 0 1px rgba(51, 214, 255, .10),
+				0 0 44px rgba(51, 214, 255, .12),
+				0 0 120px rgba(29, 76, 255, .08);
+		}
+
+		.heroInner {
+			padding: clamp(22px, 3.2vw, 46px);
+			display: grid;
+			grid-template-columns: 1.25fr .75fr;
+			gap: 14px;
+			position: relative;
+		}
+
+		@media (max-width: 980px) {
+			.heroInner {
+				grid-template-columns: 1fr
+			}
+		}
+
+		.heroMain {
+			padding: 26px
+		}
+
+		.kicker {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			color: rgba(234, 243, 255, .84);
+			font-size: 13px;
+			letter-spacing: .08em;
+			text-transform: uppercase;
+		}
+
+		.kdot {
+			width: 8px;
+			height: 8px;
+			border-radius: 99px;
+			background: rgba(51, 214, 255, .90);
+			box-shadow: 0 0 26px rgba(51, 214, 255, .24);
+			position: relative;
+		}
+
+		.kdot:after {
+			content: "";
+			position: absolute;
+			inset: -10px;
+			border-radius: 99px;
+			border: 1px solid rgba(51, 214, 255, .18);
+			animation: ping 2.4s ease-in-out infinite;
+		}
+
+		@keyframes ping {
+			0% {
+				transform: scale(.65);
+				opacity: .18
+			}
+
+			55% {
+				transform: scale(1.15);
+				opacity: .55
+			}
+
+			100% {
+				transform: scale(1.55);
+				opacity: 0
+			}
+		}
+
+		h1 {
+			margin: 14px 0 10px;
+			font-size: clamp(46px, 5.2vw, 86px);
+			line-height: .96;
+			letter-spacing: -0.04em;
+			color: rgba(234, 243, 255, .99);
+			text-shadow:
+				0 0 34px rgba(51, 214, 255, .12),
+				0 12px 54px rgba(0, 0, 0, .38);
+		}
+
+		.lead {
+			margin: 0 0 10px;
+			color: rgba(234, 243, 255, .78);
+			font-size: 17px;
+			max-width: 74ch;
+		}
+
+		.hint {
+			margin: 0;
+			color: rgba(234, 243, 255, .60);
+			font-size: 13px;
+		}
+
+		.cta {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin-top: 14px;
+		}
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			padding: 12px 15px;
+			border-radius: 14px;
+			border: 1px solid rgba(180, 210, 255, .16);
+			background: rgba(5, 9, 19, .22);
+			text-decoration: none;
+			font-weight: 900;
+			font-size: 14px;
+		}
+
+		.btn.primary {
+			border-color: rgba(51, 214, 255, .34);
+			background: rgba(51, 214, 255, .10);
+			box-shadow: 0 10px 34px rgba(42, 169, 255, .10);
+		}
+
+		.btn:hover {
+			transform: translateY(-1px)
+		}
+
+		.btn:active {
+			transform: translateY(0px)
+		}
+
+		.heroMeta {
+			padding: 18px
+		}
+
+		.heroMeta h2 {
+			margin: 0 0 10px;
+			font-size: 16px;
+			letter-spacing: -0.01em;
+		}
+
+		.heroMeta p {
+			margin: 0 0 10px;
+			color: rgba(234, 243, 255, .72);
+			font-size: 14px;
+		}
+
+		.pillRow {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 12px;
+		}
+
+		.pill {
+			padding: 10px 12px;
+			border-radius: 999px;
+			background: rgba(5, 9, 19, .22);
+			border: 1px solid rgba(180, 210, 255, .16);
+			color: rgba(234, 243, 255, .74);
+			font-size: 13px;
+		}
+
+		section.content {
+			margin-top: 24px;
+			padding: 0;
+		}
+
+		.band {
+			position: relative;
+			margin-top: 22px;
+			padding: 34px 0;
+		}
+
+		.band:before {
+			content: "";
+			position: absolute;
+			left: -22vw;
+			right: -22vw;
+			top: 0;
+			bottom: 0;
+			background: rgba(10, 18, 42, .16);
+			border-top: 1px solid rgba(180, 210, 255, .10);
+			border-bottom: 1px solid rgba(180, 210, 255, .10);
+			transform: skewY(-1.05deg);
+			z-index: -1;
+		}
+
+		.row {
+			display: grid;
+			grid-template-columns: 1.25fr .75fr;
+			gap: 14px;
+			align-items: start;
+		}
+
+		@media (max-width: 980px) {
+			.row {
+				grid-template-columns: 1fr
+			}
+		}
+
+		.split {
+			display: grid;
+			grid-template-columns: .9fr 1.1fr;
+			gap: 14px;
+			align-items: center;
+		}
+
+		@media (max-width: 980px) {
+			.split {
+				grid-template-columns: 1fr
+			}
+		}
+
+		.cluster {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			gap: 14px;
+		}
+
+		@media (max-width: 980px) {
+			.cluster {
+				grid-template-columns: 1fr
+			}
+		}
+
+		.pad {
+			padding: 22px
+		}
+
+		h2 {
+			margin: 0 0 10px;
+			font-size: 20px;
+			letter-spacing: -0.01em;
+		}
+
+		p {
+			margin: 0 0 12px;
+			color: var(--muted)
+		}
+
+		.list {
+			margin: 10px 0 0;
+			padding: 0;
+			list-style: none;
+			display: grid;
+			gap: 10px;
+		}
+
+		.item {
+			padding: 12px 14px;
+			border-radius: 16px;
+			background: rgba(5, 9, 19, .22);
+			border: 1px solid rgba(180, 210, 255, .12);
+		}
+
+		.item strong {
+			display: block;
+			color: var(--text)
+		}
+
+		.item span {
+			display: block;
+			color: rgba(234, 243, 255, .70);
+			margin-top: 4px;
+			font-size: 13px
+		}
+
+		.quote {
+			margin: 12px 0 0;
+			padding-left: 14px;
+			border-left: 2px solid rgba(51, 214, 255, .28);
+			color: rgba(234, 243, 255, .78);
+		}
+
+		.chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-top: 10px;
+		}
+
+		.chip {
+			font-size: 12px;
+			padding: 7px 10px;
+			border-radius: 999px;
+			border: 1px solid rgba(180, 210, 255, .14);
+			background: rgba(5, 9, 19, .18);
+			color: rgba(234, 243, 255, .74);
+		}
+
+		.reveal {
+			opacity: 0;
+			transform: translateY(16px);
+			transition: opacity .85s ease, transform .85s ease;
+		}
+
+		.reveal.visible {
+			opacity: 1;
+			transform: translateY(0px);
+		}
+
+		footer {
+			margin-top: 26px;
+			text-align: center;
+			color: rgba(234, 243, 255, .60);
+			font-size: 13px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="progressWrap" aria-hidden="true">
+		<div class="progressBar" id="progressBar"></div>
+	</div>
+	<div class="vignette" aria-hidden="true"></div>
+	<div class="grid" aria-hidden="true"></div>
+	<canvas id="geom" aria-hidden="true"></canvas>
+	<div class="scanlines" aria-hidden="true"></div>
+	<div class="grain" aria-hidden="true"></div>
+
+	<header>
+		<div class="nav">
+			<a class="brand" href="#top" aria-label="Shaky Gaming & Entertainment">
+				<img src="images/shakyblue.png" alt="Shaky Gaming & Entertainment logo" class="logo" />
+				<div>
+					<strong>Shaky Gaming & Ent.</strong>
+					<span>Based in Toronto, Canada, built for creators worldwide</span>
+				</div>
+			</a>
+
+			<div class="links" aria-label="Site navigation">
+				<a href="#about">About</a>
+				<a href="#thesis">Thesis</a>
+				<a href="#support">Support</a>
+				<a class="pill" href="#contact">Contact</a>
+			</div>
+		</div>
+	</header>
+
+	<main id="top">
+		<section class="hero" aria-label="Hero">
+			<div class="heroWrap">
+				<div class="heroGlow" aria-hidden="true"></div>
+
+				<div class="hud" aria-hidden="true">
+					<div class="corner c1"></div>
+					<div class="corner c2"></div>
+					<div class="corner c3"></div>
+					<div class="corner c4"></div>
+				</div>
+
+				<div class="heroInner">
+					<div class="glass heroMain reveal">
+						<div class="kicker">
+							<span class="kdot" aria-hidden="true"></span>
+							<span>Creator support since 2020</span>
+						</div>
+
+						<h1>We back creators for the long run</h1>
+
+						<p class="lead">
+							We are based in Toronto.
+							We supported 300+ creators across live and short-form eras.
+							We now operate more like a tech and investment shop that stays close to creators.
+						</p>
+
+						<p class="lead">
+							Sometimes that looks like playbooks and production systems.
+							Sometimes it is direct financial backing.
+							We prefer simple deals and clear expectations.
+						</p>
+
+						<p class="hint monoTag">
+							Status online. Queue open. No hype. Just support.
+						</p>
+
+						<div class="cta">
+							<a class="btn primary" href="#contact">Reach out</a>
+							<a class="btn" href="#support">See what we do</a>
+						</div>
+
+						<div class="accentLine" aria-hidden="true"></div>
+
+						<div class="pillRow" aria-label="Highlights">
+							<span class="pill">Since 2020</span>
+							<span class="pill">300+ creators</span>
+							<span class="pill">Capital + systems</span>
+							<span class="pill">Toronto</span>
+						</div>
+					</div>
+
+					<aside class="glass heroMeta reveal">
+						<h2>Where we are today</h2>
+						<p>
+							We were active as a BIGO LIVE and TikTok LIVE agency in earlier seasons.
+							We are not running a high-volume agency pipeline for those platforms right now.
+							We still work with creators and teams when the fit is right.
+						</p>
+
+						<div class="accentLine" aria-hidden="true"></div>
+
+						<p class="tiny">
+							If you want capital, help building systems, or a steady partner behind the scenes, email us.
+						</p>
+
+						<p class="tiny">
+							We will be direct about scope and timing.
+						</p>
+					</aside>
+				</div>
+			</div>
+		</section>
+
+		<section id="about" class="content band" aria-label="About">
+			<div class="row">
+				<div class="glass pad reveal">
+					<h2>About</h2>
+					<p>
+						We started in 2020 with hands-on creator support.
+						We learned the same lesson creators learn.
+						Platforms change and rules shift.
+						The only safe bet is skill and repeatable execution.
+					</p>
+					<p>
+						Today we use technology, capital and operator time to back creator-led work.
+						We invest in people who ship.
+						We like gaming, but we build for the real world.
+					</p>
+					<div class="chips" aria-label="Tags">
+						<span class="chip">Creator ops</span>
+						<span class="chip">Tools</span>
+						<span class="chip">Capital</span>
+						<span class="chip">Systems</span>
+					</div>
+				</div>
+
+				<div class="glass pad reveal">
+					<h2>What we are not</h2>
+					<ul class="list" aria-label="Not list">
+						<li class="item">
+							<strong>Not a promise factory</strong>
+							<span>We do not sell guaranteed growth or guaranteed virality</span>
+						</li>
+						<li class="item">
+							<strong>Not platform-locked</strong>
+							<span>We do not build our identity around one app</span>
+						</li>
+						<li class="item">
+							<strong>Not a volume machine</strong>
+							<span>We are not running a huge roster right now</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section id="thesis" class="content" aria-label="Thesis">
+			<div class="split">
+				<div class="glass pad reveal">
+					<h2>Thesis</h2>
+					<p>
+						Creators are not just marketing.
+						They are small media companies with a product and a distribution edge.
+						When the talent is real, capital and tooling can compound fast.
+					</p>
+					<p>
+						We look for creators who treat the work like a craft and a game.
+						Show up, iterate and keep your build clean.
+					</p>
+					<div class="quote">
+						We want to be the quiet upgrade behind the stream.
+						Better tooling, better decisions and more runway.
+					</div>
+				</div>
+
+				<div class="glass pad reveal">
+					<h2>How we invest</h2>
+					<ul class="list" aria-label="Investment list">
+						<li class="item">
+							<strong>Runway</strong>
+							<span>We can fund tools, editors, gear and experiments when the plan is clear</span>
+						</li>
+						<li class="item">
+							<strong>Systems</strong>
+							<span>We build repeatable workflows so you can ship like a team</span>
+						</li>
+						<li class="item">
+							<strong>Signal</strong>
+							<span>We focus on formats that win across cycles and platform changes</span>
+						</li>
+					</ul>
+					<div class="accentLine" aria-hidden="true"></div>
+					<p class="tiny">
+						We are selective.
+						We do not want a hundred loose bets.
+						We want a few strong builds.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="support" class="content band" aria-label="Support">
+			<div class="cluster">
+				<div class="glass pad reveal">
+					<h2>What we do now</h2>
+					<p>
+						We back creator-led work with tech, capital and operator time.
+						Some of it is behind the scenes.
+						Some of it is direct support.
+					</p>
+					<div class="accentLine" aria-hidden="true"></div>
+					<p class="tiny">
+						Think loadouts, not lectures.
+						Simple, repeatable and clean.
+					</p>
+				</div>
+
+				<div class="glass pad reveal">
+					<h2>Support</h2>
+					<ul class="list" aria-label="Support list">
+						<li class="item">
+							<strong>Positioning and formats</strong>
+							<span>We help you define what you are known for and how to repeat it</span>
+						</li>
+						<li class="item">
+							<strong>Production</strong>
+							<span>We reduce setup and workflow friction</span>
+						</li>
+						<li class="item">
+							<strong>Deal structure</strong>
+							<span>We keep terms simple and we avoid traps that create resentment</span>
+						</li>
+					</ul>
+				</div>
+
+				<div class="glass pad reveal">
+					<h2>Platform risk</h2>
+					<p>
+						We help you avoid being trapped by one algorithm.
+						We plan for change.
+					</p>
+					<div class="accentLine" aria-hidden="true"></div>
+					<p class="tiny">
+						We also help platforms and brands work with creators in a clean and respectful way.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="contact" class="content" aria-label="Contact">
+			<div class="glass pad reveal">
+				<h2>Contact</h2>
+				<p>
+					Send a short note about what you make and where you post.
+					Tell us what you want help with.
+					If you are looking for financial backing, be direct about the ask and the plan.
+				</p>
+				<div class="cta">
+					<a class="btn primary" href="mailto:hello@shaky.gg">Email hello@shaky.gg</a>
+					<a class="btn" href="#top">Back to top</a>
+				</div>
+				<div class="accentLine" aria-hidden="true"></div>
+				<p class="tiny">
+					We are in Toronto, ON, Canada.
+				</p>
+
+				<footer>
+					<div>© <span id="year"></span> Shaky Gaming & Entertainment</div>
+				</footer>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		document.getElementById("year").textContent = new Date().getFullYear();
+
+		const revealEls = Array.from(document.querySelectorAll(".reveal"));
+		const io = new IntersectionObserver((entries) => {
+			for (const e of entries) {
+				if (e.isIntersecting) e.target.classList.add("visible");
+			}
+		}, { threshold: 0.12 });
+		for (const el of revealEls) io.observe(el);
+
+		const progressBar = document.getElementById("progressBar");
+		const onScroll = () => {
+			const doc = document.documentElement;
+			const scrollTop = doc.scrollTop || document.body.scrollTop;
+			const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+			const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+			progressBar.style.width = pct.toFixed(2) + "%";
+		};
+		window.addEventListener("scroll", onScroll, { passive: true });
+		onScroll();
+
+		const canvas = document.getElementById("geom");
+		const ctx = canvas.getContext("2d");
+
+		const prefersReduced =
+			window.matchMedia &&
+			window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+		function resize() {
+			const dpr = Math.min(window.devicePixelRatio || 1, 2);
+			canvas.width = Math.floor(window.innerWidth * dpr);
+			canvas.height = Math.floor(window.innerHeight * dpr);
+			canvas.style.width = window.innerWidth + "px";
+			canvas.style.height = window.innerHeight + "px";
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		}
+		window.addEventListener("resize", resize);
+		resize();
+
+		function rotX(p, a) {
+			const s = Math.sin(a), c = Math.cos(a);
+			return [p[0], p[1] * c - p[2] * s, p[1] * s + p[2] * c];
+		}
+		function rotY(p, a) {
+			const s = Math.sin(a), c = Math.cos(a);
+			return [p[0] * c + p[2] * s, p[1], -p[0] * s + p[2] * c];
+		}
+		function rotZ(p, a) {
+			const s = Math.sin(a), c = Math.cos(a);
+			return [p[0] * c - p[1] * s, p[0] * s + p[1] * c, p[2]];
+		}
+
+		function project(p, cx, cy) {
+			const fov = 760;
+			const z = p[2];
+			const scale = fov / (fov + z);
+			return { x: p[0] * scale + cx, y: p[1] * scale + cy, z };
+		}
+
+		function cube(size) {
+			const s = size;
+			const v = [
+				[-s, -s, -s], [s, -s, -s], [s, s, -s], [-s, s, -s],
+				[-s, -s, s], [s, -s, s], [s, s, s], [-s, s, s]
+			];
+			const e = [
+				[0, 1], [1, 2], [2, 3], [3, 0],
+				[4, 5], [5, 6], [6, 7], [7, 4],
+				[0, 4], [1, 5], [2, 6], [3, 7]
+			];
+			const f = [
+				[0, 1, 2], [0, 2, 3],
+				[4, 5, 6], [4, 6, 7],
+				[0, 1, 5], [0, 5, 4],
+				[2, 3, 7], [2, 7, 6],
+				[1, 2, 6], [1, 6, 5],
+				[0, 3, 7], [0, 7, 4]
+			];
+			return { v, e, f };
+		}
+
+		function tetra(size) {
+			const s = size;
+			const v = [
+				[0, 0, s],
+				[0, (2 * Math.sqrt(2) / 3) * s, -s / 3],
+				[-Math.sqrt(6) / 3 * s, -Math.sqrt(2) / 3 * s, -s / 3],
+				[Math.sqrt(6) / 3 * s, -Math.sqrt(2) / 3 * s, -s / 3]
+			];
+			const e = [[0, 1], [0, 2], [0, 3], [1, 2], [2, 3], [3, 1]];
+			const f = [[0, 1, 2], [0, 2, 3], [0, 3, 1], [1, 3, 2]];
+			return { v, e, f };
+		}
+
+		function icosa(size) {
+			const t = (1 + Math.sqrt(5)) / 2;
+			const s = size / Math.sqrt(1 + t * t);
+			const a = s;
+			const b = t * s;
+			const v = [
+				[-a, b, 0], [a, b, 0], [-a, -b, 0], [a, -b, 0],
+				[0, -a, b], [0, a, b], [0, -a, -b], [0, a, -b],
+				[b, 0, -a], [b, 0, a], [-b, 0, -a], [-b, 0, a]
+			];
+			const e = [
+				[0, 1], [0, 5], [0, 7], [0, 10], [0, 11],
+				[1, 5], [1, 7], [1, 8], [1, 9],
+				[2, 3], [2, 4], [2, 6], [2, 10], [2, 11],
+				[3, 4], [3, 6], [3, 8], [3, 9],
+				[4, 5], [4, 9], [4, 11],
+				[5, 9], [5, 11],
+				[6, 7], [6, 8], [6, 10],
+				[7, 8], [7, 10],
+				[8, 9],
+				[10, 11]
+			];
+			const f = [
+				[0, 11, 5], [0, 5, 1], [0, 1, 7], [0, 7, 10], [0, 10, 11],
+				[1, 5, 9], [1, 9, 8], [1, 8, 7],
+				[2, 11, 10], [2, 10, 6], [2, 6, 3], [2, 3, 4], [2, 4, 11],
+				[3, 6, 8], [3, 8, 9], [3, 9, 4],
+				[4, 9, 5], [4, 5, 11],
+				[6, 10, 7], [6, 7, 8]
+			];
+			return { v, e, f };
+		}
+
+		function lerp2(a, b, t) {
+			return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, z: a.z + (b.z - a.z) * t };
+		}
+
+		function clamp01(x) { return Math.max(0, Math.min(1, x)); }
+		function circDist(a, b) {
+			const d = Math.abs(a - b);
+			return Math.min(d, 1 - d);
+		}
+
+		const shapes = [
+			{
+				mesh: icosa(320),
+				x: 0.26, y: 0.34, z: 240,
+				rx: 0.00011, ry: 0.00013, rz: 0.00007,
+				fill: 0.075, wire: 0.22,
+				shimmerSpeed: 0.000032, shimmerWidth: 0.19,
+				drift: 0.006,
+				phase: 0.3
+			},
+			{
+				mesh: cube(300),
+				x: 0.78, y: 0.42, z: 360,
+				rx: 0.00009, ry: 0.00012, rz: 0.00008,
+				fill: 0.055, wire: 0.20,
+				shimmerSpeed: 0.000028, shimmerWidth: 0.17,
+				drift: 0.005,
+				phase: 2.0
+			},
+			{
+				mesh: tetra(280),
+				x: 0.58, y: 0.80, z: 230,
+				rx: 0.00010, ry: 0.00011, rz: 0.00009,
+				fill: 0.055, wire: 0.19,
+				shimmerSpeed: 0.000038, shimmerWidth: 0.21,
+				drift: 0.007,
+				phase: 4.1
+			},
+			{
+				mesh: cube(220),
+				x: 0.12, y: 0.82, z: 450,
+				rx: 0.00008, ry: 0.00010, rz: 0.00006,
+				fill: 0.045, wire: 0.16,
+				shimmerSpeed: 0.000026, shimmerWidth: 0.15,
+				drift: 0.005,
+				phase: 6.2
+			}
+		];
+
+		function drawEdgeBase(a, b, alpha) {
+			ctx.beginPath();
+			ctx.moveTo(a.x, a.y);
+			ctx.lineTo(b.x, b.y);
+			ctx.strokeStyle = "rgba(51,214,255," + alpha.toFixed(3) + ")";
+			ctx.lineWidth = 1;
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(a.x, a.y);
+			ctx.lineTo(b.x, b.y);
+			ctx.strokeStyle = "rgba(51,214,255," + (alpha * 0.18).toFixed(3) + ")";
+			ctx.lineWidth = 3;
+			ctx.stroke();
+		}
+
+		function drawEdgeShimmer(a, b, uCenter, width, depth) {
+			const dx = b.x - a.x;
+			const dy = b.y - a.y;
+			const dist = Math.sqrt(dx * dx + dy * dy);
+			if (dist < 40) return;
+
+			const steps = 16;
+			const base = 0.02 + depth * 0.06;
+			const peak = 0.10 + depth * 0.18;
+
+			for (let s = 0; s < steps; s++) {
+				const t0 = s / steps;
+				const t1 = (s + 1) / steps;
+				const tm = (t0 + t1) * 0.5;
+
+				const d = circDist(tm, uCenter);
+				const x = d / Math.max(0.001, width);
+				const g = Math.exp(-x * x * 2.0);
+
+				const a1 = base + (peak * g);
+				if (a1 < 0.01) continue;
+
+				const p0 = lerp2(a, b, t0);
+				const p1 = lerp2(a, b, t1);
+
+				ctx.beginPath();
+				ctx.moveTo(p0.x, p0.y);
+				ctx.lineTo(p1.x, p1.y);
+				ctx.strokeStyle = "rgba(234,243,255," + (a1 * 0.18).toFixed(3) + ")";
+				ctx.lineWidth = 2;
+				ctx.stroke();
+
+				ctx.beginPath();
+				ctx.moveTo(p0.x, p0.y);
+				ctx.lineTo(p1.x, p1.y);
+				ctx.strokeStyle = "rgba(51,214,255," + a1.toFixed(3) + ")";
+				ctx.lineWidth = 4;
+				ctx.stroke();
+			}
+		}
+
+		function drawShape(shape, t) {
+			const w = window.innerWidth;
+			const h = window.innerHeight;
+
+			const driftX = Math.sin(t * 0.00005 + shape.phase) * w * shape.drift;
+			const driftY = Math.cos(t * 0.00004 + shape.phase * 0.7) * h * (shape.drift * 0.7);
+
+			const cx = w * shape.x + driftX;
+			const cy = h * shape.y + driftY;
+
+			const ax = t * shape.rx;
+			const ay = t * shape.ry;
+			const az = t * shape.rz;
+
+			const mesh = shape.mesh;
+			const tv = mesh.v.map((p) => {
+				let q = p;
+				q = rotX(q, ax);
+				q = rotY(q, ay);
+				q = rotZ(q, az);
+				q = [q[0], q[1], q[2] + shape.z];
+				return q;
+			});
+
+			const pv = tv.map((p) => project(p, cx, cy));
+
+			const faces = mesh.f.slice().map((tri) => {
+				const z = (pv[tri[0]].z + pv[tri[1]].z + pv[tri[2]].z) / 3;
+				return { tri, z };
+			}).sort((a, b) => a.z - b.z);
+
+			for (const f of faces) {
+				const a = pv[f.tri[0]], b = pv[f.tri[1]], c = pv[f.tri[2]];
+				const depth = clamp01(1 - (f.z / 900));
+				const alpha = shape.fill * (0.24 + depth * 0.76);
+
+				ctx.beginPath();
+				ctx.moveTo(a.x, a.y);
+				ctx.lineTo(b.x, b.y);
+				ctx.lineTo(c.x, c.y);
+				ctx.closePath();
+				ctx.fillStyle = "rgba(42,169,255," + alpha.toFixed(3) + ")";
+				ctx.fill();
+			}
+
+			for (let i = 0; i < mesh.e.length; i++) {
+				const edge = mesh.e[i];
+				const a = pv[edge[0]];
+				const b = pv[edge[1]];
+
+				const z = (a.z + b.z) / 2;
+				const depth = clamp01(1 - (z / 940));
+				const alpha = shape.wire * (0.16 + depth * 0.84);
+
+				drawEdgeBase(a, b, alpha);
+
+				const u = (t * shape.shimmerSpeed + i * 0.083 + shape.phase) % 1;
+				drawEdgeShimmer(a, b, u, shape.shimmerWidth, depth);
+			}
+		}
+
+		function draw(t) {
+			const w = window.innerWidth;
+			const h = window.innerHeight;
+
+			ctx.clearRect(0, 0, w, h);
+
+			ctx.globalCompositeOperation = "lighter";
+			for (const s of shapes) drawShape(s, t);
+			ctx.globalCompositeOperation = "source-over";
+		}
+
+		function loop(now) {
+			draw(now);
+			if (!prefersReduced) requestAnimationFrame(loop);
+		}
+
+		if (prefersReduced) {
+			draw(0);
+		} else {
+			requestAnimationFrame(loop);
+		}
+	</script>
+</body>
+
+</html>
