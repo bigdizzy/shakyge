@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-23T00:00:00.000Z",
+  "title": "Design System: Shaky Gaming & Entertainment",
+  "extensions": {
+    "colorMeta": {
+      "void-navy": {
+        "role": "neutral",
+        "displayName": "Void Navy",
+        "canonical": "oklch(0.14 0.03 265)",
+        "tonalRamp": [
+          "oklch(0.12 0.028 265)",
+          "oklch(0.16 0.032 265)",
+          "oklch(0.20 0.034 265)",
+          "oklch(0.26 0.036 265)",
+          "oklch(0.34 0.038 265)",
+          "oklch(0.44 0.040 265)",
+          "oklch(0.56 0.038 265)",
+          "oklch(0.70 0.032 265)"
+        ]
+      },
+      "cyan-edge": {
+        "role": "primary",
+        "displayName": "Cyan Edge",
+        "canonical": "oklch(0.78 0.12 220)",
+        "tonalRamp": [
+          "oklch(0.28 0.10 220)",
+          "oklch(0.38 0.11 220)",
+          "oklch(0.48 0.12 220)",
+          "oklch(0.58 0.12 220)",
+          "oklch(0.68 0.12 220)",
+          "oklch(0.78 0.12 220)",
+          "oklch(0.86 0.10 220)",
+          "oklch(0.93 0.06 220)"
+        ]
+      },
+      "frost-text": {
+        "role": "neutral",
+        "displayName": "Frost Text",
+        "canonical": "oklch(0.95 0.02 250)",
+        "tonalRamp": [
+          "oklch(0.20 0.03 250)",
+          "oklch(0.32 0.03 250)",
+          "oklch(0.44 0.025 250)",
+          "oklch(0.56 0.022 250)",
+          "oklch(0.68 0.02 250)",
+          "oklch(0.80 0.02 250)",
+          "oklch(0.90 0.02 250)",
+          "oklch(0.95 0.02 250)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only. Tight, heavy, single glow."
+      },
+      "label": {
+        "displayName": "Mono label",
+        "purpose": "Short metadata only. Not for voice or status cosplay."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "0 18px 60px rgba(0, 0, 0, 0.45)",
+        "purpose": "Default glass card elevation."
+      },
+      {
+        "name": "hero-mass",
+        "value": "0 26px 90px rgba(0, 0, 0, 0.55)",
+        "purpose": "Hero wrap container depth."
+      },
+      {
+        "name": "cyan-halo",
+        "value": "0 0 44px rgba(51, 214, 255, 0.12), 0 0 120px rgba(29, 76, 255, 0.08)",
+        "purpose": "Brand glow around hero frame."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-scroll-reveal",
+        "value": "opacity 0.85s ease, transform 0.85s ease",
+        "purpose": "Section .reveal on intersection."
+      },
+      {
+        "name": "ease-button-lift",
+        "value": "transform 0.2s ease",
+        "purpose": "Button hover translateY(-1px)."
+      },
+      {
+        "name": "ease-kdot-ping",
+        "value": "2.4s ease-in-out infinite",
+        "purpose": "Kicker dot pulse. Remove on redesign."
+      }
+    ],
+    "breakpoints": [
+      { "name": "nav-collapse", "value": "920px" },
+      { "name": "grid-stack", "value": "980px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA on dark glass surfaces.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#contact\">Reach out</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; padding: 12px 15px; border-radius: 14px; border: 1px solid rgba(51, 214, 255, 0.34); background: rgba(51, 214, 255, 0.10); color: #eaf3ff; font-weight: 900; font-size: 14px; text-decoration: none; box-shadow: 0 10px 34px rgba(42, 169, 255, 0.10); transition: transform 0.2s ease, background 0.2s ease; } .ds-btn-primary:hover { transform: translateY(-1px); background: rgba(51, 214, 255, 0.14); } .ds-btn-primary:focus-visible { outline: 2px solid #33d6ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action beside primary CTA.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#support\">See what we do</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; padding: 12px 15px; border-radius: 14px; border: 1px solid rgba(180, 210, 255, 0.16); background: rgba(5, 9, 19, 0.22); color: #eaf3ff; font-weight: 900; font-size: 14px; text-decoration: none; transition: transform 0.2s ease; } .ds-btn-ghost:hover { transform: translateY(-1px); } .ds-btn-ghost:focus-visible { outline: 2px solid #33d6ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "glass-card",
+      "description": "Primary content panel with blur and hairline border.",
+      "html": "<div class=\"ds-glass\"><h2 class=\"ds-glass-title\">About</h2><p class=\"ds-glass-body\">Operator copy on a frosted panel.</p></div>",
+      "css": ".ds-glass { background: rgba(10, 18, 42, 0.34); border: 1px solid rgba(180, 210, 255, 0.16); border-radius: 22px; padding: 22px; box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45); backdrop-filter: blur(16px) saturate(1.25); color: #eaf3ff; } .ds-glass-title { margin: 0 0 10px; font-size: 20px; font-weight: 900; letter-spacing: -0.01em; } .ds-glass-body { margin: 0; color: rgba(234, 243, 255, 0.72); font-size: 17px; line-height: 1.5; }"
+    },
+    {
+      "name": "Fact Pill",
+      "kind": "chip",
+      "refersTo": "button-ghost",
+      "description": "Hero highlight capsule for stats or tags.",
+      "html": "<span class=\"ds-pill\">Since 2020</span>",
+      "css": ".ds-pill { display: inline-block; padding: 10px 12px; border-radius: 999px; background: rgba(5, 9, 19, 0.22); border: 1px solid rgba(180, 210, 255, 0.16); color: rgba(234, 243, 255, 0.74); font-size: 13px; }"
+    },
+    {
+      "name": "Site Navigation",
+      "kind": "nav",
+      "refersTo": "button-ghost",
+      "description": "Header link row on frosted bar.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary\"><a class=\"ds-nav-link\" href=\"#about\">About</a><a class=\"ds-nav-link ds-nav-pill\" href=\"#contact\">Contact</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 10px; font-size: 14px; } .ds-nav-link { color: rgba(234, 243, 255, 0.72); text-decoration: none; padding: 8px 10px; border-radius: 12px; border: 1px solid transparent; } .ds-nav-link:hover { background: rgba(180, 210, 255, 0.08); color: #eaf3ff; border-color: rgba(180, 210, 255, 0.10); } .ds-nav-pill { border-color: rgba(51, 214, 255, 0.20); background: rgba(51, 214, 255, 0.06); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Operator",
+    "overview": "Shaky's site should feel like a credible game-studio or broadcast operator at night: deep navy atmosphere, Shaky blue as instrument lighting, and one signature motion treatment (wireframe geometry) instead of a pile of retro HUD effects.",
+    "keyCharacteristics": [
+      "Deep void navy base with cool frost text",
+      "Three-step blue accent ramp: royal → sky → cyan edge",
+      "Large display headlines, heavy weight, tight tracking",
+      "Glass panels with 22px radius and hairline borders",
+      "Signature wireframe canvas geometry as primary motion"
+    ],
+    "rules": [
+      {
+        "name": "The Logo Blue Rule",
+        "body": "Accent hues must stay within the existing Shaky ramp. Do not introduce purple gradients, gold fintech accents, or neon magenta.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat Stack Ban",
+        "body": "Do not combine vignette + grid + scanlines + grain + HUD corners + glass stacks. Pick one signature atmospheric layer plus base gradient.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Glow Rule",
+        "body": "Display headlines may carry a single soft glow. No gradient text.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do keep dark void navy backgrounds and the Shaky blue → cyan accent ramp.",
+      "Do treat wireframe canvas geometry as the primary atmospheric motion.",
+      "Do use glass panels sparingly for major content blocks.",
+      "Do keep copy direct and operator-toned."
+    ],
+    "donts": [
+      "Don't ship generic SaaS landing patterns.",
+      "Don't sound like a creator agency pitch deck.",
+      "Don't use cyber HUD clichés: corner brackets, scanlines, fake status pings.",
+      "Don't pivot to AI editorial cream-paper layout.",
+      "Don't use neon crypto / Web3 aesthetics.",
+      "Don't stack vignette + grid + scanlines + grain + HUD + glass."
+    ]
+  }
+}
